@@ -1,10 +1,9 @@
 package com.chat.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,17 +12,18 @@ import java.util.Set;
 
 @Entity
 @Data
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Size(min = 4)
+    @Size(min=2, message = "Не меньше 5 знаков")
+    @NotNull(message = "Имя пользователя не может быть пустым")
     private String username;
-
-    @Size(min = 8)
+    @Size(min=5, message = "Не меньше 5 знаков")
+    @NotNull(message = "Пароль не может быть пустым")
     private String password;
 
     @Transient
@@ -33,18 +33,8 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
-
-    @Override
     public String getUsername() {
         return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -67,5 +57,13 @@ public class User implements UserDetails {
         return true;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
 }

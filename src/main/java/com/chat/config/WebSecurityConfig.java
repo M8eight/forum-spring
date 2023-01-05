@@ -20,11 +20,21 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests()
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .authorizeHttpRequests()
                 .requestMatchers("/login", "/register").anonymous()
                 .requestMatchers("/messages").authenticated()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/");
 
         return httpSecurity.build();
     }

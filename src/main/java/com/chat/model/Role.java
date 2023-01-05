@@ -8,33 +8,24 @@ import java.util.Set;
 
 @Entity
 @Data
-@ToString
-@EqualsAndHashCode
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-
     @Transient
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> users;
-
-    @Override
-    public String getAuthority() {
-        return getName();
-    }
 
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Role(Long id) {
-        this.id = id;
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 }
