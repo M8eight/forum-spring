@@ -1,14 +1,14 @@
 package com.chat.config;
 
-import com.chat.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -25,15 +25,18 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/login", "/register").anonymous()
                 .requestMatchers("/messages").authenticated()
-                .anyRequest().permitAll()
+                .requestMatchers(HttpMethod.GET, "/topic/add", "/topic/*/edit").authenticated()
+                .requestMatchers(HttpMethod.POST, "/topic/add", "/topic/*/", "/topic/*/delete").authenticated()
+                .requestMatchers(HttpMethod.GET, "/", "/topics", "/faq", "/topic/*").permitAll()
+                .requestMatchers("/img/**", "/static/**").permitAll()
+                //todo Разрешить только админам
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/")
-                .permitAll()
                 .and()
                 .logout()
-                .permitAll()
+                .logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/");
 
         return httpSecurity.build();

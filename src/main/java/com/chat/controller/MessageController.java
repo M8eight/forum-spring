@@ -21,7 +21,7 @@ public class MessageController {
     }
 
     @PostMapping("/messages")
-    public String addMessage(@ModelAttribute("messageObj") @Valid Message message, BindingResult br, RedirectAttributes ra){
+    public String addMessage(@ModelAttribute("messageObj") @Valid Message message, BindingResult br, RedirectAttributes ra) {
         Long topicId = message.getTopic().getId();
         if (br.hasErrors()) {
             ra.addFlashAttribute("errors",

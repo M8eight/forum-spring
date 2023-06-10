@@ -1,7 +1,9 @@
 package com.chat.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
@@ -28,4 +30,6 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
+
+    //TODO Сделать автороли
 }

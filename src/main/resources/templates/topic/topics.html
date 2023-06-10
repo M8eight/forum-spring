@@ -14,39 +14,40 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
-    <div th:replace="~{blocks/navbar :: navbar}"></div>
+<div th:replace="~{blocks/navbar :: navbar}"></div>
 
+<br>
+<h3 class="text-center my-3 border-bottom pb-2 mb-4 text-black border-bottom border-black">Все топики</h3>
+
+<div class="d-grid gap-2 col-lg-6 mx-auto">
+    <a href="/topic/add" class="btn btn-primary btn-block">Создать топик</a>
+</div>
+
+
+<th:block th:each="el : ${topicList}">
     <br>
-    <div class="container-fluid ">
-        <div class="row mx-3 ">
-            <div class="col rounded-pill shadow p-3 mb-5 bg-body-tertiary rounded">
-                <div class=" border bg-danger rounded-pill p-2"><h2 class="text-center text-white ">ТОПИКИ</h2></div>
+    <div class="container">
+        <div class="row mx-3">
+            <div class="col rounded-pill mb-2 topic-body">
+                <a th:href="@{'/topic/' + ${el.id}}" class="link-light text-decoration-none">
+                    <div class="shadow bg-body-tertiary p-2 text-black text-center col-lg-10 mx-auto">
+                        <h3 th:text="${el.name}" class="topic-name">dasdas</h3>
+                    </div>
+                </a>
+                <div class="border px-3 rounded-2 mx-auto col-lg-10" style="white-space: pre-line;">
+                    <p class="topic-desc" th:text="${el.description}">dasdasfqawfdqawqwf[0okqwfjqwjfq9wejgqowejfoqwjfoqwj</p>
+                </div>
             </div>
+            <form th:action="@{'/topic/' + ${el.id} + '/delete'}" class="delete-topic" method="post">
+                <div class="btn-group mx-auto col-lg-10">
+                    <a class="btn btn-warning" th:href="@{'/topic/' + ${el.id} + '/edit'}">Редактировать</a>
+                    <input class="btn btn-danger" type="submit" value="Удалить">
+                </div>
+            </form>
         </div>
     </div>
+</th:block>
 
-    <a href="/topic/new" class="btn btn-primary ">Создать топик</a>
 
-    <th:block th:each="el : ${topicList}">
-        <br>
-        <div class="container-fluid ">
-            <div class="row mx-3">
-                <div class="col rounded-pill">
-                    <a th:href="@{'/topic/' + ${el.id}}" class="link-light text-decoration-none">
-                        <div class="border bg-info p-2">
-                            <h3 th:text="${el.name}"></h3>
-                        </div>
-                        <div class="border bg-info p-2">
-                            <p>
-                                <h3 th:text="${el.description}"></h3>
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <a class="btn btn-warning" th:href="@{'/topic/' + ${el.id} + '/edit'}">Редактировать</a>
-                <form th:action="@{'/topic/' + ${el.id} + '/delete'}" method="post"><input class="btn btn-danger"  type="submit" value="Удалить"></form>
-            </div>
-        </div>
-    </th:block>
 </body>
 </html>

@@ -1,21 +1,47 @@
-<nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary ">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+
+<nav th:fragment="navbar" class="navbar navbar-expand-md navbar-light bg-light" aria-label="Fourth navbar example">
+<!--<script src="/static/js/changeNavButtonActivity.js"/>-->
+    <script>
+        let pathname = document.location.pathname;
+        let elements = document.getElementsByClassName("button-activity");
+
+        for (let i = 0; i < elements.length; i++) {
+            if(elements[i].pathname == pathname) {
+                elements[i].classList.add("active");
+                console.log(elements[i].pathname);
+            }
+        }
+        console.log(pathname)
+
+    </script>
+    <div class="container-fluid" bis_skin_checked="1">
+        <a class="navbar-brand" href="/">Форум собак</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample04" bis_skin_checked="1">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-primary" aria-current="page" href="/">Главное</a>
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="/topics">Топики</a>
-                <li class="nav-item">
-                    <a class="nav-link active text-info text-decoration-none" aria-current="page" href="/faq">FAQ</a>
+                    <a class="nav-link button-activity" aria-current="page" href="/">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-info text-decoration-none" aria-current="page" href="/login">Вход</a>
+                    <a class="nav-link button-activity" href="/topics">Топики</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-info text-decoration-none" aria-current="page" href="/register">Регистрация</a>
+                    <a class="nav-link button-activity" href="/faq">FAQ</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Профиль</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item button-activity" href="/profile">Настройки профиля</a></li>
+                        <form action="/logout" method="post" class="dropdown-item p-0">
+                            <input type="submit" value="Выйти" class="dropdown-item">
+                        </form>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+</span>

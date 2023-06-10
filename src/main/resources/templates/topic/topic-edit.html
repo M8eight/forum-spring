@@ -14,27 +14,27 @@
 </head>
 <body>
 
-    <div th:replace="~{blocks/navbar :: navbar}"></div>
+<div th:replace="~{blocks/navbar :: navbar}"></div>
 
-    <div class="container mt-4"></div>
-    <form th:action="@{'/topic/' + ${topic.id}}" th:method="post" th:object="${topicObj}">
-        <th:block th:object="${topic}">
-            <input type="hidden" name="id" th:value="*{id}">
-            <input placeholder="Имя" type="text" name="name" th:value="*{name}" required>
-            <input placeholder="Описание" type="text" name="description" th:value="*{description}">
-            <input type="hidden" name="created_at" th:value="*{created_at}">
-            <input type="submit">
-        </th:block>
-    </form>
-    <th:block th:if="${errors}">
-        <h5>Ошибки</h5>
-        <table>
-            <tr th:each="el : ${errors}">
-                <td th:text="${el.key}"></td>
-                <td th:text="${el.value}"></td>
-            </tr>
-        </table>
+<div class="container mt-4"></div>
+<form th:action="@{'/topic/' + ${topic.id}}" th:method="post" th:object="${topicObj}">
+    <th:block th:object="${topic}">
+        <input type="hidden" name="id" th:value="*{id}">
+        <input placeholder="Имя" type="text" name="name" th:value="*{name}" required>
+        <input placeholder="Описание" type="text" name="description" th:value="*{description}">
+        <input type="hidden" name="created_at" th:value="*{created_at}">
+        <input type="submit">
     </th:block>
+</form>
+<th:block th:if="${errors}">
+    <h5>Ошибки</h5>
+    <table>
+        <tr th:each="el : ${errors}">
+            <td th:text="${el.key}"></td>
+            <td th:text="${el.value}"></td>
+        </tr>
+    </table>
+</th:block>
 
 </body>
 </html>

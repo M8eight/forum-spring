@@ -13,53 +13,53 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
-    <div th:replace="~{blocks/navbar :: navbar}"></div>
+<div th:replace="~{blocks/navbar :: navbar}"></div>
 
-    <h3 class="text-center" th:text="${topic.name}"></h3>
-    <h5 class="text-center" th:text="${topic.description}"></h5>
-    <h6 class="text-center">Сообщения топика</h6>
-    <div class="container">
-        <div class="col"></div>
-        <div class="col">
-            <form th:action="@{'/messages'}" method="post" th:object="${messageObj}">
-                <input type="hidden" value="123124" name="author"/>
-                <input type="hidden" value="31241" name="reply"/>
-                <textarea placeholder="Пишите сообщение" name="text" cols="30" rows="10" required></textarea>
-                <input type="hidden" name="topic" th:value="${topic.id}"/>
-                <input type="submit">
-            </form>
-            <th:block th:if="${errors}">
-                <h5>Ошибки</h5>
-                <table>
-                    <tr th:each="el : ${errors}">
-                        <td th:text="${el.key}"></td>
-                        <td th:text="${el.value}"></td>
-                    </tr>
-                </table>
-            </th:block>
-            <br>
-            <th:block th:each="el : ${messages}">
-                <div class="text-center border shadow mb-3">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <h5 th:text="'Автор: ' + ${el.author}"></h5>
-                            </div>
-                            <div class="col">
-                                <h6 th:text="'Ответ: ' + ${el.reply}"></h6>
-                            </div>
+<h3 class="text-center" th:text="${topic.name}"></h3>
+<h5 class="text-center" th:text="${topic.description}"></h5>
+<h6 class="text-center">Сообщения топика</h6>
+<div class="container">
+    <div class="col"></div>
+    <div class="col">
+        <form th:action="@{'/messages'}" method="post" th:object="${messageObj}">
+            <input type="hidden" value="123124" name="author"/>
+            <input type="hidden" value="31241" name="reply"/>
+            <textarea placeholder="Пишите сообщение" name="text" cols="30" rows="10" required></textarea>
+            <input type="hidden" name="topic" th:value="${topic.id}"/>
+            <input type="submit">
+        </form>
+        <th:block th:if="${errors}">
+            <h5>Ошибки</h5>
+            <table>
+                <tr th:each="el : ${errors}">
+                    <td th:text="${el.key}"></td>
+                    <td th:text="${el.value}"></td>
+                </tr>
+            </table>
+        </th:block>
+        <br>
+        <th:block th:each="el : ${messages}">
+            <div class="text-center border shadow mb-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h5 th:text="'Автор: ' + ${el.author}"></h5>
                         </div>
-                        <div class="row">
-                            <h5 th:text="'Текст: ' + ${el.text}"></h5>
-                        </div>
-                        <div class="row">
-                            <p th:text="'Изменено: ' + ${el.updated_at}"></p>
+                        <div class="col">
+                            <h6 th:text="'Ответ: ' + ${el.reply}"></h6>
                         </div>
                     </div>
+                    <div class="row">
+                        <h5 th:text="'Текст: ' + ${el.text}"></h5>
+                    </div>
+                    <div class="row">
+                        <p th:text="'Изменено: ' + ${el.updated_at}"></p>
+                    </div>
                 </div>
-            </th:block>
-        </div>
-        <div class="col"></div>
+            </div>
+        </th:block>
     </div>
+    <div class="col"></div>
+</div>
 </body>
 </html>
