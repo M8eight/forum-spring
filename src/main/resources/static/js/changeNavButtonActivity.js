@@ -1,12 +1,12 @@
-let pathname = document.location.pathname;
+let pathname = document.location.pathname.split("/")[1];
 let elements = document.getElementsByClassName("button-activity");
 
-for (let i = 0; i < elements.length; i++) {
-    if(elements[i].pathname == pathname) {
-        elements[i].classList.add("active");
-        console.log(elements[i].pathname);
+if(pathname == "topic") {
+    elements[1].classList.add("active");
+} else {
+    for (let i = 0; i < elements.length; i++) {
+        if(elements[i].pathname.split("/")[1] == pathname) {
+            elements[i].classList.add("active");
+        }
     }
 }
-console.log(pathname);
-
-//todo Сделеть что бы работал

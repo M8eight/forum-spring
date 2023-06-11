@@ -38,10 +38,12 @@
                     <p class="topic-desc" th:text="${el.description}">dasdasfqawfdqawqwf[0okqwfjqwjfq9wejgqowejfoqwjfoqwj</p>
                 </div>
             </div>
-            <form th:action="@{'/topic/' + ${el.id} + '/delete'}" class="delete-topic" method="post">
-                <div class="btn-group mx-auto col-lg-10">
+        </div>
+        <div class="row">
+            <form th:action="@{'/topic/' + ${el.id} + '/delete'}" class="delete-topic d-grid gap-2 col-lg-6 mx-auto" method="post">
+                <div class="btn-group">
                     <a class="btn btn-warning" th:href="@{'/topic/' + ${el.id} + '/edit'}">Редактировать</a>
-                    <input class="btn btn-danger" type="submit" value="Удалить">
+                    <input class="btn btn-danger col-4" type="submit" value="Удалить">
                 </div>
             </form>
         </div>

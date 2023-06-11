@@ -19,6 +19,16 @@
 
 <div class="container">
     <div class="bg-body-tertiary p-5 rounded mt-3">
+        <th:block th:if="${logoutSuccess}">
+            <div class="alert alert-primary text-center fw-semibold fst-italic" role="alert">
+                Вы успешно вышли из аккаунта!
+            </div>
+        </th:block>
+
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            This content is only shown to administrators.
+        </div>
+
         <h1 class="text-center">Собачка</h1>
         <img src="/static/dog.jpg" class="img-fluid float rounded mx-auto d-block" alt="Responsive image">
     </div>

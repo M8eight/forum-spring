@@ -57,6 +57,6 @@ public class AuthController {
             return "redirect:/register";
         }
         ra.addFlashAttribute("successFlash", "Вы успешно зарегестрировались");
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
