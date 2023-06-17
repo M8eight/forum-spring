@@ -38,7 +38,7 @@ public class MessageDAO implements IDao<Message> {
     }
 
     @Override
-    public void update(Message message, String[] params) {
+    public void update(Message message) {
         messageRepository.save(message);
     }
 

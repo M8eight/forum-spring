@@ -38,7 +38,7 @@ public class TopicDAO implements IDao<Topic> {
     }
 
     @Override
-    public void update(Topic topic, String[] params) {
+    public void update(Topic topic) {
         topicRepository.save(topic);
     }
 

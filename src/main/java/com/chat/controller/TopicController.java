@@ -68,15 +68,14 @@ public class TopicController {
         return "topic/topic";
     }
 
-    @PostMapping("/topic/{id}")
+    @PostMapping("/topic/{id}/edit")
     public String editTopic(@ModelAttribute("topicObj") Topic topic, RedirectAttributes ra, BindingResult br) {
         if (br.hasErrors()) {
             ra.addFlashAttribute("errors",
                     ValidationHelpers.validationParseHelper(br));
             return "redirect:/topic/" + topic.getId() + "/edit";
         }
-        //TODO Сделать
-        topicDAO.update(topic, new String[]{});
+        topicDAO.update(topic);
         return "redirect:/topics";
     }
 
@@ -85,5 +84,4 @@ public class TopicController {
         topicDAO.delete(topic);
         return "redirect:/topics";
     }
-    //todo сделать изменение топиков
 }

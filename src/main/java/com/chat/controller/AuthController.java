@@ -40,21 +40,21 @@ public class AuthController {
     @PostMapping("/register")
     public String addUser(@ModelAttribute("userObj") @Valid User user, BindingResult br, Model m, RedirectAttributes ra) {
         if (br.hasErrors()) {
-            ra.addFlashAttribute("errors",
+            m.addAttribute("errors",
                     ValidationHelpers.validationParseHelper(br));
-            return "redirect:/register";
+            return "auth/register";
         }
         if (!user.getPassword().equals(user.getPasswordConfirm())) {
             Map<String, String> errors = new HashMap<>();
             errors.put("password", "Пароли не совпадают");
             m.addAttribute("errors", errors);
-            return "redirect:/register";
+            return "auth/register";
         }
         if (!userService.saveUser(user)) {
             Map<String, String> errors = new HashMap<>();
             errors.put("username", "Такой пользователь уже существует");
             m.addAttribute("errors", errors);
-            return "redirect:/register";
+            return "auth/register";
         }
         ra.addFlashAttribute("successFlash", "Вы успешно зарегестрировались");
         return "redirect:/login";

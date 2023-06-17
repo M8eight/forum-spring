@@ -35,10 +35,10 @@ public class WebSecurityConfig {
                 .requestMatchers("/login", "/register").anonymous()
                 .requestMatchers("/messages").authenticated()
                 .requestMatchers(HttpMethod.GET, "/topic/add", "/topic/*/edit", "/profile/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/topic/add", "/topic/*/", "/topic/*/delete", "/profile/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/topic/add", "/topic/*/", "/topic/*/delete", "/topic/*/edit", "/profile/**").authenticated()
                 .requestMatchers(HttpMethod.GET, "/", "/topics", "/faq", "/topic/*").permitAll()
                 .requestMatchers("/img/**", "/static/**").permitAll()
-                //todo Разрешить только админам
+                //todo Сделать админов
                 .and()
                 .formLogin()
                 .loginPage("/login")

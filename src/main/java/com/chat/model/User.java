@@ -21,10 +21,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 2, message = "Не меньше 5 знаков")
-    @NotNull(message = "Имя пользователя не может быть пустым")
+    @Size(min = 2, message = "Имя пользователя должно быть меньше 5 знаков")
+    @NotNull(message = "Поле имя пользователя не может быть пустым")
     private String username;
-    @Size(min = 5, message = "Не меньше 5 знаков")
+    @Size(min = 5, message = "Пароль должен быть больше 5 знаков")
     @NotNull(message = "Пароль не может быть пустым")
     private String password;
 

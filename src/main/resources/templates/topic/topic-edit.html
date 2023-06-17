@@ -17,7 +17,7 @@
 <div th:replace="~{blocks/navbar :: navbar}"></div>
 
 <div class="container mt-4"></div>
-<form th:action="@{'/topic/' + ${topic.id}}" th:method="post" th:object="${topicObj}">
+<form th:action="@{'/topic/' + ${topic.id} + '/edit'}" th:method="post" th:object="${topicObj}">
     <th:block th:object="${topic}">
         <input type="hidden" name="id" th:value="*{id}">
         <input placeholder="Имя" type="text" name="name" th:value="*{name}" required>
