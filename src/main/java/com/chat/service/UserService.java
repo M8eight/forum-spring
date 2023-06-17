@@ -5,6 +5,7 @@ import com.chat.model.User;
 import com.chat.repository.RoleRepository;
 import com.chat.repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

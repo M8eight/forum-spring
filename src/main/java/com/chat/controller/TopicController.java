@@ -85,5 +85,5 @@ public class TopicController {
         topicDAO.delete(topic);
         return "redirect:/topics";
     }
-//todo сделать изменение профиля
+    //todo сделать изменение топиков
 }

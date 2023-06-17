@@ -20,7 +20,6 @@ public class MainController {
     public String getMain(@RequestParam(value = "logout", required = false) String logoutParam, RedirectAttributes ra) {
         if (Objects.equals(logoutParam, "success")) {
             ra.addFlashAttribute("logoutSuccess", true);
-            System.out.println("XXX");
             return "redirect:/";
         }
         return "main";

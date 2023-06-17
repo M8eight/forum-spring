@@ -43,7 +43,8 @@
                                 <span sec:authentication="name"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item button-activity" href="/profile">Настройки профиля</a></li>
+                                <li><a class="dropdown-item button-activity" href="/profile">Профиль</a></li>
+                                <li><a class="dropdown-item button-activity" href="/profile/settings">Настройки профиля</a></li>
                                 <form th:action=@{'/logout'} method="post" class="dropdown-item p-0">
                                     <input type="submit" value="Выйти" class="dropdown-item">
                                 </form>
