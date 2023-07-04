@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="">
+<html lang="ru" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
 
 <h3 class="text-center my-3 border-bottom pb-2 mb-4 text-black border-bottom border-black">Все топики</h3>
 
-<div class="d-grid gap-2 col-lg-6 mx-auto">
+<div class="d-grid gap-2 col-lg-6 mx-auto" sec:authorize="hasRole('ROLE_ADMIN')">
     <a href="/topic/add" class="btn btn-primary btn-block">Создать топик</a>
 </div>
 
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
             <form th:action="@{'/topic/' + ${el.id} + '/delete'}" class="delete-topic d-grid gap-2 col-lg-6 mx-auto" method="post">
                 <div class="btn-group">
                     <a class="btn btn-warning" th:href="@{'/topic/' + ${el.id} + '/edit'}">Редактировать</a>
@@ -50,7 +50,6 @@
         </div>
     </div>
 </th:block>
-
 
 </body>
 </html>

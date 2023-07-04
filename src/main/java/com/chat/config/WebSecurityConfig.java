@@ -32,21 +32,19 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests()
-                .requestMatchers("/login", "/register").anonymous()
-                .requestMatchers("/messages").authenticated()
-                .requestMatchers(HttpMethod.GET, "/topic/add", "/topic/*/edit", "/profile/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/topic/add", "/topic/*/", "/topic/*/delete", "/topic/*/edit", "/profile/**").authenticated()
-                .requestMatchers(HttpMethod.GET, "/", "/topics", "/faq", "/topic/*").permitAll()
-                .requestMatchers("/img/**", "/static/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/", "/topics", "/faq", "/topic/*").permitAll() //Главная страница, топики, faq, просмотр топика отдельно
+                .requestMatchers("/login", "/register").anonymous() //Аутентификация
+                .requestMatchers("/messages").authenticated() //Сообщения
+                .requestMatchers("/profile/**").authenticated() //Изменение профиля
+                .requestMatchers("/topic/add").authenticated() //Создание топиков
+                .requestMatchers("/topic/*/delete", "/topic/*/edit").hasAnyRole("ADMIN", "MODERATOR") //Удаление и изменение топиков
+                .requestMatchers("/img/**", "/static/**").permitAll() //Статический контент
+                .anyRequest().denyAll() //Остальные запросы
                 //todo Сделать админов
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .formLogin().loginPage("/login").defaultSuccessUrl("/")
                 .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/?logout=success");
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/?logout=success");
 
         return httpSecurity.build();
     }

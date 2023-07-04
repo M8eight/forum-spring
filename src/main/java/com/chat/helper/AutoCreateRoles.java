@@ -15,6 +15,7 @@ public class AutoCreateRoles {
     void CreateRoles() {
         blankCreateRole(1L, "ROLE_USER");
         blankCreateRole(2L, "ROLE_ADMIN");
+        blankCreateRole(3L, "ROLE_MODERATOR");
     }
 
     void blankCreateRole(Long roleId, String roleName) {
