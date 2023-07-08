@@ -1,67 +1,123 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Меню</title>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-            crossorigin="anonymous"></script>
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-            crossorigin="anonymous"></script>
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script defer src="/static/js/username-checker.js"></script>
+    <div th:replace="~{blocks/headers :: headers}"></div>
 </head>
 <body>
 
-<div th:replace="~{blocks/navbar :: navbar}"></div>
+    <div th:replace="~{blocks/navbar :: navbar}"></div>
 
-<h3 class="text-center my-3 border-bottom pb-2 mb-4 text-black border-bottom border-warning">Изменить профиль</h3>
+    <h3 class="text-center my-3 border-bottom pb-2 mb-4 text-black border-bottom border-warning">Изменить профиль</h3>
 
-<div class="container">
+    <div class="container">
 
-    <th:block th:if="${success}">
-        <div th:text="${success}" class="alert alert-success text-center fw-semibold fst-italic" role="alert"></div>
-    </th:block>
+        <th:block th:if="${success}">
+            <div th:text="${success}" class="alert alert-success text-center fw-semibold fst-italic" role="alert"></div>
+        </th:block>
 
-    <th:block th:if="${error}">
-        <div th:text="${error}" class="alert alert-danger text-center fw-semibold fst-italic" role="alert"></div>
-    </th:block>
+        <th:block th:if="${error}">
+            <div th:text="${error}" class="alert alert-danger text-center fw-semibold fst-italic" role="alert"></div>
+        </th:block>
 
-    <th:block th:if="${errors}">
-        <table class="table table-danger">
-            <tbody>
-            <tr th:each="el : ${errors}" class="text-center">
-                <td th:text="${el.value}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </th:block>
+        <th:block th:if="${errors}">
+            <table class="table table-danger">
+                <tbody>
+                    <tr th:each="el : ${errors}" class="text-center">
+                        <td th:text="${el.value}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </th:block>
 
-    <div class="bg-body-tertiary p-5 rounded mt-3 border">
-        <div class="row g-3">
+        <div class="bg-body-tertiary p-5 rounded mt-3 border">
+            <div class="row g-3">
 
-            <div class="modal fade" id="username-edit" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Изменение имени пользователя</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal fade" id="username-edit" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Изменение имени пользователя</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{'/profile/edit/username'}" method="post">
+                                    <div class="modal-body">
+                                        <label for="new-username" class="col-form-label">Введите имя
+                                            пользователя</label>
+                                        <input required minlength="5" type="text" name="new-username"
+                                            id="new-username" class="form-control mb-3"
+                                            placeholder="Введите новое имя пользователя">
+
+                                        <label for="password" class="col-form-label">Введите пароль</label>
+                                        <input required minlength="5" type="password" name="password" id="password"
+                                            class="form-control mb-3" mb-3 placeholder="Введите пароль">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form th:action="@{'/profile/edit/username'}" method="post">
-                                <div class="modal-body">
-                                    <label for="new-username" class="col-form-label">Введите имя пользователя</label>
-                                    <input required minlength="5" type="password" name="new-username" id="new-username"
-                                           class="form-control mb-3"
-                                           placeholder="Введите новое имя пользователя">
+                    </div>
+                </div>
 
-                                    <label for="password" class="col-form-label">Введите пароль</label>
-                                    <input required minlength="5" type="password" name="password" id="password"
-                                           class="form-control mb-3"
-                                           mb-3 placeholder="Введите пароль">
+                <div class="col-sm-12">
+                    <a type="text" class="btn btn-primary btn-sm col-12" data-bs-toggle="modal"
+                        data-bs-target="#username-edit">Изменить имя</a>
+                </div>
+
+                <form th:action=@{'/profile/edit/'}>
+                    <div class="col-12">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" disabled id="email">
+                    </div>
+                </form>
+
+                <button class="btn btn-primary btn-sm col-12" data-bs-toggle="modal" data-bs-target="#email-edit"
+                    id="change-email">Изменить email
+                </button>
+
+                <div class="modal fade" id="password-edit" tabindex="-1" aria-labelledby="passwordModelLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="passwordModelLabel">Изменение пароля</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form th:action="@{'/profile/edit/password'}" method="post">
+                                <div class="modal-body">
+                                    <label for="old-password" class="col-form-label">Ваш старый пароль</label>
+                                    <input required minlength="5" type="password" name="old-password" id="old-password"
+                                        class="form-control mb-3" placeholder="Введите старый пароль">
+
+                                    <label for="new-password" class="col-form-label">Ваш новый пароль</label>
+                                    <input required minlength="5" type="password" name="new-password" id="new-password"
+                                        class="form-control mb-3" mb-3 placeholder="Введите новый пароль">
+
+                                    <label for="confirm-new-password" class="col-form-label">Повторите новый
+                                        пароль</label>
+                                    <input required minlength="5" type="password" name="confirm-new-password"
+                                        id="confirm-new-password" class="form-control"
+                                        placeholder="Подтвердите новый пароль">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Отправить</button>
@@ -70,66 +126,17 @@
                         </div>
                     </div>
                 </div>
+
+                <a class="btn btn-warning btn-lg my-4 col-12" data-bs-toggle="modal" data-bs-target="#password-edit"
+                    id="password-edit-button" href="#">Изменить пароль</a>
+
+                <!--TODO Сделать изменение имени-->
+
             </div>
-
-            <div class="col-sm-12">
-                <a type="text" class="btn btn-primary btn-sm col-12" data-bs-toggle="modal"
-                   data-bs-target="#username-edit">Изменить имя</a>
-            </div>
-
-            <form th:action=@{'/profile/edit/'}>
-                <div class="col-12">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" disabled id="email">
-                </div>
-            </form>
-
-            <button class="btn btn-primary btn-sm col-12" data-bs-toggle="modal" data-bs-target="#email-edit"
-                    id="change-email">Изменить email
-            </button>
-
-            <div class="modal fade" id="password-edit" tabindex="-1" aria-labelledby="passwordModelLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="passwordModelLabel">Изменение пароля</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form th:action="@{'/profile/edit/password'}" method="post">
-                            <div class="modal-body">
-                                <label for="old-password" class="col-form-label">Ваш старый пароль</label>
-                                <input required minlength="5" type="password" name="old-password" id="old-password"
-                                       class="form-control mb-3"
-                                       placeholder="Введите старый пароль">
-
-                                <label for="new-password" class="col-form-label">Ваш новый пароль</label>
-                                <input required minlength="5" type="password" name="new-password" id="new-password"
-                                       class="form-control mb-3"
-                                       mb-3 placeholder="Введите новый пароль">
-
-                                <label for="confirm-new-password" class="col-form-label">Повторите новый пароль</label>
-                                <input required minlength="5" type="password" name="confirm-new-password"
-                                       id="confirm-new-password"
-                                       class="form-control" placeholder="Подтвердите новый пароль">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Отправить</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <a class="btn btn-warning btn-lg my-4 col-12" data-bs-toggle="modal" data-bs-target="#password-edit"
-               id="password-edit-button" href="#">Изменить пароль</a>
-
-            <!--TODO Сделать изменение имени-->
-
         </div>
     </div>
-</div>
 
 
 </body>
+
 </html>

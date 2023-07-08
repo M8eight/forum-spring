@@ -34,12 +34,12 @@ public class ProfileController {
         return "profile/profile-edit";
     }
 
-    @PostMapping("/profile/edit/username")
-    ResponseEntity<?> userExits(@RequestParam("new-username") String newUsername) {
+    @PostMapping("/profile/edit/username/check")
+    ResponseEntity<?> userExits(@RequestParam("username") String newUsername) {
         if (userRepository.findByUsername(newUsername) == null) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED); //Разрешенно создавать
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK); //Запрещено
     }
 
 //    @PostMapping("/profile/edit/username")
@@ -59,25 +59,18 @@ public class ProfileController {
 //            redirectAttributes.addFlashAttribute("success", "Имя пользователя изменено");
 //            return "redirect:/profile/settings";
 //        }
-//        //#TODO Сденлать балду и ajax
+//        //#TODO Сденлать изменение имени
 //
 //        redirectAttributes.addFlashAttribute("error", "Неправильно введен старый пароль");
 //        return "redirect:/profile/settings";
 //    }
 
     @PostMapping("/profile/edit/password")
-    String editProfilePassword(@RequestParam("old-password") String oldPassword,
-                               @Size(min = 5, message = "Пароль должен быть больше 5 символов") @RequestParam("new-password") String newPassword,
-                               @RequestParam("confirm-new-password") String confirmNewPassword,
+    String editProfilePassword(@Size(min = 5) @RequestParam("old-password") String oldPassword,
+                               @Size(min = 5) @RequestParam("new-password") String newPassword,
+                               @Size(min = 5) @RequestParam("confirm-new-password") String confirmNewPassword,
                                @AuthenticationPrincipal User user,
-                               RedirectAttributes redirectAttributes,
-                               BindingResult br,
-                               Model m) {
-        if (br.hasErrors()) {
-            m.addAttribute("errors",
-                    ValidationHelpers.validationParseHelper(br));
-            return "profile/profile-edit";
-        }
+                               RedirectAttributes redirectAttributes) {
 
         if (passwordEncoder.matches(oldPassword, user.getPassword())) {
             if (!newPassword.isBlank() && newPassword.equals(confirmNewPassword)) {

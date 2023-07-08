@@ -1,0 +1,5 @@
+<th:block th:fragment="headers">
+    <meta th:name="_csrf" th:content="${_csrf.token}" />
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
+    <script src="/static/js/csrfSecurity.js"></script>
+</th:block>
